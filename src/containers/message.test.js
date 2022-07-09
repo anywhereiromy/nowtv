@@ -49,18 +49,13 @@ const testMemberTwo = {
 };
 
 it('renders correct message', () => {
-  // act(() => {
-  //   render(<Message />, container);
-  // });
-  // expect(container.textContent).toBe('');
-
   act(() => {
     render(<Message message={testMessage} member={testMember} />, container);
   });
-  expect(container.textContent).toBe('Cras non velit nec nisi vulputate nonummy.');
+  expect(container.textContent).toBe('Cras non velit nec nisi vulputate nonummy.8th Mar 2016 20:11');
 
   act(() => {
     render(<Message message={testMessageTwo} member={testMemberTwo} />, container);
   });
-  expect(container.textContent).toBe('vulputate nonummy.');
+  expect(container.textContent).toBe('vulputate nonummy.9th Jun 2017 22:12');
 });

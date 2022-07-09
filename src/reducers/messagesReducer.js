@@ -1,4 +1,5 @@
 import { messageActionTypes } from "./messageActions";
+import { orderByAscendingTimestamp } from "../helpers/orderByAscendingTimestamp";
 
 export const messagesInitialState = {
     loading: false,
@@ -20,9 +21,10 @@ const messageReducer = (
         }
 
         case messageActionTypes.MessagesLoaded: {
+            const messagesInAscendingTimestamp = orderByAscendingTimestamp(action.payload);
             return {
                 ...state,
-                messages: [...action.payload],
+                messages: [...messagesInAscendingTimestamp],
                 loading: false,
                 error: false,
             };
