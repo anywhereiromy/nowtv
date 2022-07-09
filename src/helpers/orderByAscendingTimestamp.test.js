@@ -81,4 +81,9 @@ describe('orderByAscendingTimestamp', () => {
     expect(result[0].id).toBe(expectedOrder[0].id);
     expect(result[1].id).toBe(expectedOrder[1].id);
   });
+  it('does not mutate original array', () => {
+    const result = orderByAscendingTimestamp(testMessages);
+    expect(result).not.toBe(testMessages);
+    expect(testMessages).toBe(testMessages);
+  });
 });

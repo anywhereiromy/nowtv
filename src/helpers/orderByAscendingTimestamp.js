@@ -1,4 +1,4 @@
-export const orderByAscendingTimestamp = (array) => array.sort(sortFunction);
+export const orderByAscendingTimestamp = (array) => [...array.sort(sortFunction)];
 
 const sortFunction = (a, b) => {
   if (a.timestamp < b.timestamp) {
