@@ -1,35 +1,45 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import dayjs from 'dayjs';
-import advancedFormat from 'dayjs/plugin/advancedFormat';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { getHumanReadableDateTime } from '../helpers/getHumanReadableDateTime';
+import ReactTooltip from 'react-tooltip';
+
+const Avatar = styled.img`
+  float: right;
+`;
+
+const MessageInfo = styled.div`
+  margin: 2%;
+  padding: 2%;
+  border: 1px solid black;
+  border-radius: 3px;
+`;
+
+const MessageTime = styled.time`
+  display: block;
+  margin-top: 2%;
+`;
 
 const Message = ({ message, member }) => {
-  const [showEmail, setShowEmail] = useState(false);
-  const { email } = member;
-  // TODO: make this timezone friendly
-  // dayjs("2013-11-18 11:55").tz("America/Toronto", true)
-  dayjs.extend(advancedFormat);
-  const parsedTimestamp = dayjs(message.timestamp).format('Do MMM YYYY HH:mm');
+  const { timestamp } = message;
+  const parsedTimestamp = getHumanReadableDateTime(timestamp);
+  const { avatar, email, firstName, lastName, id: memberId } = member;
   return (
-    <div>
-      {member.avatar ? (
-        <img src={member.avatar} alt={`${member.firstName}'s avatar`} />
-      ) : (
-        <img src="https://dummyimage.com/100x100/0dff00/000000.png" alt="default avatar" />
-      )}
-      <p
-        onMouseOver={() => {
-          setShowEmail(true);
-        }}
-        onMouseOut={() => {
-          setShowEmail(false);
-        }}
-      >
+    <MessageInfo>
+      <Avatar
+        src={avatar ? avatar : 'https://dummyimage.com/100x100/0dff00/000000.png'}
+        alt={`${avatar ? firstName + "'s" : 'default'} avatar`}
+      />
+      <p data-tip data-for={memberId}>
         {message.message}
-        {showEmail && <a href={`mailto: ${email}`}>{email}</a>}
       </p>
-      <time dateTime={message.timestamp}>{parsedTimestamp}</time>
-    </div>
+      <ReactTooltip id={memberId} role="status">
+        <p aria-controls={memberId}>{email}</p>
+      </ReactTooltip>
+      <MessageTime dateTime={timestamp}>{parsedTimestamp}</MessageTime>
+      <Link to={`/messages/${memberId}`}>{`${firstName} ${lastName}`}</Link>
+    </MessageInfo>
   );
 };
 

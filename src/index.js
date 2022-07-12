@@ -9,6 +9,7 @@ import { store, history } from './store';
 import App from './containers/app';
 
 import './index.css';
+import MessagePage from './containers/messagePage';
 
 const target = document.querySelector('#root');
 
@@ -17,7 +18,8 @@ render(
     <ConnectedRouter history={history}>
       <>
         <Switch>
-          <Route exact path="/" render={() => (<App />)} />
+          <Route exact path="/" render={() => <App />} />
+          <Route exact path="/messages/:userId" render={() => <MessagePage />} />
         </Switch>
       </>
     </ConnectedRouter>
