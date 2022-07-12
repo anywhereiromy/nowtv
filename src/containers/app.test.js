@@ -3,11 +3,8 @@ import App from './app';
 import members from '../data/members.json';
 import messages from '../data/messages.json';
 import React from 'react';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import { initialState, createRootReducer } from '../reducers';
-import { render } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
+import { initialState } from '../reducers';
+import renderWithProviders from '../helpers/renderWithProviders';
 
 const loadedState = {
   messages: {
@@ -34,11 +31,6 @@ const onlyMembersState = {
     members: members,
   },
 };
-
-function renderWithProviders(ui, { reduxState } = {}) {
-  const store = createStore(createRootReducer({}), reduxState || initialState);
-  return render(<Provider store={store}>{ui}</Provider>, { wrapper: BrowserRouter });
-}
 
 describe('App', () => {
   test('renders correct heading', () => {
