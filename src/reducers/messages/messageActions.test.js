@@ -1,4 +1,4 @@
-import { loadingMessages, messagesLoaded, messageLoadingFailed } from "./messageActions";
+import { loadingMessages, messagesLoaded, messageLoadingFailed } from './messageActions';
 import { messageActionTypes } from './messageActions';
 
 describe('loadingMessages', () => {

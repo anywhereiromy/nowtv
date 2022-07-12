@@ -1,6 +1,6 @@
 import { getMembers, getMessages } from '../data';
-import { loadingMessages, messagesLoaded, messageLoadingFailed } from '../reducers/messageActions';
-import { loadingMembers, membersLoaded, memberLoadingFailed } from '../reducers/memberActions';
+import { loadingMessages, messagesLoaded, messageLoadingFailed } from '../reducers/messages/messageActions';
+import { loadingMembers, membersLoaded, memberLoadingFailed } from '../reducers/members/memberActions';
 
 export const loadMembers = (dispatch) => {
   dispatch(loadingMembers());

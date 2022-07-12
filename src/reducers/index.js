@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
-import messageReducer from './messagesReducer';
-import memberReducer from './membersReducer';
+import messageReducer from './messages/messagesReducer';
+import memberReducer from './members/membersReducer';
 
 export const createRootReducer = (history) =>
   combineReducers({
