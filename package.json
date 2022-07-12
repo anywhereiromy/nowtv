@@ -11,8 +11,12 @@
     "precommit": "pretty-quick --staged"
   },
   "dependencies": {
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "12.1.5",
+    "@testing-library/user-event": "^13.5.0",
     "connected-react-router": "6.8.0",
     "dayjs": "^1.11.3",
+    "jest-dom": "^4.0.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-redux": "7.2.0",

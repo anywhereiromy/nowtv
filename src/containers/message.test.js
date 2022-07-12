@@ -1,20 +1,9 @@
 import React from 'react';
-import { render, unmountComponentAtNode } from 'react-dom';
-import { act } from 'react-dom/test-utils';
-
+import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
+import '@testing-library/jest-dom';
+import { getHumanReadableDateTime } from '../helpers/getHumanReadableDateTime';
 import Message from './message';
-
-let container = null;
-beforeEach(() => {
-  container = document.createElement('div');
-  document.body.appendChild(container);
-});
-
-afterEach(() => {
-  unmountComponentAtNode(container);
-  container.remove();
-  container = null;
-});
 
 const testMessage = {
   id: '8fe34649-702c-4e6b-8129-fa12d8341e91',
@@ -48,14 +37,26 @@ const testMemberTwo = {
   ip: '183.19.42.78',
 };
 
-it('renders correct message', () => {
-  act(() => {
-    render(<Message message={testMessage} member={testMember} />, container);
-  });
-  expect(container.textContent).toBe('Cras non velit nec nisi vulputate nonummy.8th Mar 2016 20:11');
+describe('Message', () => {
+  it('renders correct message text', () => {
+    render(<Message message={testMessage} member={testMember} />, { wrapper: BrowserRouter });
+    expect(screen.getByText(testMessage.message)).toBeInTheDocument();
 
-  act(() => {
-    render(<Message message={testMessageTwo} member={testMemberTwo} />, container);
+    render(<Message message={testMessageTwo} member={testMemberTwo} />, { wrapper: BrowserRouter });
+    expect(screen.getByText(testMessageTwo.message)).toBeInTheDocument();
   });
-  expect(container.textContent).toBe('vulputate nonummy.9th Jun 2017 22:12');
+  it('renders correct timestamp', () => {
+    render(<Message message={testMessage} member={testMember} />, { wrapper: BrowserRouter });
+    const parsedTimestamp = getHumanReadableDateTime(testMessage.timestamp);
+    expect(screen.getByText(parsedTimestamp)).toBeInTheDocument();
+    render(<Message message={testMessageTwo} member={testMemberTwo} />, { wrapper: BrowserRouter });
+    const parsedTimestampTwo = getHumanReadableDateTime(testMessageTwo.timestamp);
+    expect(screen.getByText(parsedTimestampTwo)).toBeInTheDocument();
+  });
+  it('renders correct name', () => {
+    render(<Message message={testMessage} member={testMember} />, { wrapper: BrowserRouter });
+    expect(screen.getByText(`${testMember.firstName} ${testMember.lastName}`)).toBeInTheDocument();
+    render(<Message message={testMessageTwo} member={testMemberTwo} />, { wrapper: BrowserRouter });
+    expect(screen.getByText(`${testMemberTwo.firstName} ${testMemberTwo.lastName}`)).toBeInTheDocument();
+  });
 });
