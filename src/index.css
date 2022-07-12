@@ -9,4 +9,9 @@ body {
     sans-serif;
   font-size: 1rem;
   line-height: 1.5;
+  background-color: #142524;
+  background: linear-gradient(to bottom left, #00818a, black);
+  background-size: 100vw;
+  background-repeat: no-repeat;
+  height: 100vh;
 }

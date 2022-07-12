@@ -7,11 +7,24 @@ import { orderByDescendingTimestamp } from '../helpers/orderByDescendingTimestam
 import { orderByAscendingTimestamp } from '../helpers/orderByAscendingTimestamp';
 import styled from 'styled-components';
 
+const AppBackground = styled.main`
+  font-family: Helvetica, Arial, sans-serif;
+`;
+
+const Title = styled.h1`
+  text-align: center;
+  color: white;
+`;
+
+const Loading = styled.p`
+  text-align: center;
+  color: white;
+`;
 //TODO: make this a select dropdown?
 const SortButton = styled.button`
   appearance: button;
   backface-visibility: hidden;
-  background-color: #405cf5;
+  background-color: #00818a;
   border-radius: 6px;
   border-width: 0;
   color: #fff;
@@ -25,6 +38,10 @@ const SortButton = styled.button`
   position: relative;
   text-align: center;
   min-width: 140px;
+
+  &:hover {
+    background-color: #0a696f;
+  }
 `;
 
 const App = () => {
@@ -43,20 +60,22 @@ const App = () => {
 
   const loaded = !!(members.length && messages.length);
   return (
-    <main>
-      <h1>Welcome to the NOW TV test!</h1>
+    <AppBackground>
+      <Title>Welcome to the NOW TV test!</Title>
       {loaded && (
         <SortButton onClick={() => setSortAscending(!sortAscending)}>
           Sort {sortAscending ? 'descending' : 'ascending'}
         </SortButton>
       )}
-      {loaded
-        ? orderedMessages.map((message) => {
-            const member = findMemberById(members, message.userId);
-            return <Message key={message.id} message={message} member={member} />;
-          })
-        : 'Loading...'}
-    </main>
+      {loaded ? (
+        orderedMessages.map((message) => {
+          const member = findMemberById(members, message.userId);
+          return <Message key={message.id} message={message} member={member} />;
+        })
+      ) : (
+        <Loading>Loading...</Loading>
+      )}
+    </AppBackground>
   );
 };
 

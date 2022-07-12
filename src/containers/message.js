@@ -12,13 +12,26 @@ const Avatar = styled.img`
 const MessageInfo = styled.div`
   margin: 2%;
   padding: 2%;
-  border: 1px solid black;
-  border-radius: 3px;
+  border: 2px solid #293837;
+  border-radius: 6px;
+  color: white;
+  background-color: #142524;
 `;
 
 const MessageTime = styled.time`
   display: block;
   margin-top: 2%;
+  color: #a7acac;
+`;
+
+const User = styled(Link)`
+  display: block;
+  margin-top: 2%;
+  color: #a7acac;
+
+  &:hover {
+    color: white;
+  }
 `;
 
 const Message = ({ message, member }) => {
@@ -38,7 +51,7 @@ const Message = ({ message, member }) => {
         <p aria-controls={memberId}>{email}</p>
       </ReactTooltip>
       <MessageTime dateTime={timestamp}>{parsedTimestamp}</MessageTime>
-      <Link to={`/messages/${memberId}`}>{`${firstName} ${lastName}`}</Link>
+      <User to={`/messages/${memberId}`}>{`${firstName} ${lastName}`}</User>
     </MessageInfo>
   );
 };
