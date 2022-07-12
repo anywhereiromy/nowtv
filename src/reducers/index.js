@@ -9,3 +9,12 @@ export const createRootReducer = (history) =>
     messages: messageReducer,
     members: memberReducer,
   });
+
+export const initialState = {
+  messages: {
+    messages: [],
+  },
+  members: {
+    members: [],
+  },
+};
